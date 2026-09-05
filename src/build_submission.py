@@ -23,7 +23,7 @@ PLACEHOLDER_RE = re.compile(r"\[[^\]\n]{0,40}\]")
 def load_test_rows():
     import csv as csvmod
     rows = {}
-    with open(os.path.join(ROOT, "data", "test.csv"), newline="", encoding="utf-8") as f:
+    with open(os.path.join(ROOT, "data", "test.csv"), newline="", encoding="utf-8-sig") as f:
         for row in csvmod.DictReader(f):
             rows[row["case_id"]] = row
     return rows
@@ -74,7 +74,8 @@ def main():
         cand_labels = {label for label, _ in cand_fields}
 
         template_text = row["template_content"]
-        _, template_fields = parse_fields(template_text)
+        template_findings_text, _ = split_sections(template_text)
+        _, template_fields = parse_fields(template_findings_text)
         template_labels = {label for label, _ in template_fields}
 
         missing_labels = template_labels - cand_labels

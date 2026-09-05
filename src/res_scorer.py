@@ -274,12 +274,12 @@ def main():
     args = ap.parse_args()
 
     ref_rows = {}
-    with open(args.data, newline="", encoding="utf-8") as f:
+    with open(args.data, newline="", encoding="utf-8-sig") as f:
         for row in csv.DictReader(f):
             ref_rows[row["case_id"]] = row
 
     pred_rows = {}
-    with open(args.predictions, newline="", encoding="utf-8") as f:
+    with open(args.predictions, newline="", encoding="utf-8-sig") as f:
         for row in csv.DictReader(f):
             pred_rows[row["case_id"]] = row["report"]
 
